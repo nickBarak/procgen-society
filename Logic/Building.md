@@ -1,0 +1,9 @@
+- houses: 6-10 wide/long
+- stores: 10-16 wide/long
+- must appear 1 away from road with street generated in front of door
+- doors can't appear on corners
+- store doors are 2 wide
+- house doors are 1 wide
+- max 1 door (2 for stores) per building
+- house door can appear anywhere on wall
+- store doors must appear at center

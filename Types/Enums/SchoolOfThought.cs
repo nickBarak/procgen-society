@@ -1,0 +1,25 @@
+namespace Types.Enums {
+    public enum ESchoolOfThought {
+        NIHILISM,
+        EXISTENTIALISM,
+        HEDONISM,
+        STOICISM,
+        EPICUREANISM,
+        MARXISM__MINIMALISM,
+        TAOISM,
+        RATIONALISM,
+        LOGICAL_POSITIVISM__EMPIRICISM,
+        MONISM,
+        CONFUCIANISM,
+        REALISM__OBJECTIVISM,
+        UTILITARIANISM,
+        KANTIANISM,
+        CYNICISM,
+        EGOISM,
+        SKEPTICISM,
+        ABSURDISM,
+        ATOMISM,
+        HOLISM,
+        HUMANISM,
+    }
+}

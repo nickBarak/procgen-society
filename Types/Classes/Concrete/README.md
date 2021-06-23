@@ -1,0 +1,1 @@
+Concrete classes should inherit from an abstract class

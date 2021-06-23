@@ -1,0 +1,11 @@
+- establish relationships between generated agents
+- build roadgen
+- build buildinggen w/ agents assigned
+- build peripheraltopographygen
+- build targetstategen
+- design dialogue flow
+- define dialogue graph
+- define enums
+- build agent AI
+- incorporate memory tampering
+- determine what happens when target state reached

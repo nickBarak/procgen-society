@@ -1,0 +1,1 @@
+All objects should be expressable in terms of an abstract class

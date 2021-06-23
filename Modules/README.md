@@ -1,0 +1,1 @@
+Generators should avoid side effects and modify and return copies of input rather than the original
