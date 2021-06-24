@@ -2,7 +2,7 @@ using Types;
 using Project;
 using Tile = Types.Classes.Concrete.Tile;
 using Tiles = Types.Enums.ETopography;
-using Direction = Types.Enums.CardinalDirection;
+using Direction = Types.Enums.ECardinalDirection;
 using System;
 using System.Collections.Generic;
 

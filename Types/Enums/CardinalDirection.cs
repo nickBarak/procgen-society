@@ -1,5 +1,5 @@
 namespace Types.Enums {
-    public enum CardinalDirection {
+    public enum ECardinalDirection {
         NORTH,
         SOUTH,
         EAST,

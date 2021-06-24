@@ -1,5 +1,5 @@
 namespace Types.Enums {
-    public enum Response {
+    public enum EResponse {
         CONCUR,
         OPPOSE,
         PROPOSE,

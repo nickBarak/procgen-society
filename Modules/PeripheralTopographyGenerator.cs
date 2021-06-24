@@ -10,8 +10,7 @@ using Bush = Types.Classes.Concrete.Bush;
 namespace Modules {
     public class PeripheralTopographyGenerator {
         public static Tile[,] GeneratePeripheralTopography(Tile[,] graticule) {
-            Tile[,] modifiedGraticule = new Tile[,]{};
-            Array.Copy(graticule, modifiedGraticule, graticule.Length);
+            Tile[,] modifiedGraticule = (Tile[,]) graticule.Clone();
             modifiedGraticule = GenerateTrees(modifiedGraticule);
             modifiedGraticule = GenerateStreetLights(modifiedGraticule);
             modifiedGraticule = GenerateBushes(modifiedGraticule);

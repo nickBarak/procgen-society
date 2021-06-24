@@ -1,4 +1,4 @@
-using Direction = Types.Enums.CardinalDirection;
+using Direction = Types.Enums.ECardinalDirection;
 using System;
 using Tile = Types.Classes.Concrete.Tile;
 
@@ -8,8 +8,7 @@ namespace Modules {
         private static Random s_random = new Random();
 
         public static Tile[,] GenerateBuildings(Tile[,] graticule) {
-            Tile[,] modifiedGraticule = new Tile[,]{};
-            Array.Copy(graticule, modifiedGraticule, graticule.Length);
+            Tile[,] modifiedGraticule = (Tile[,]) graticule.Clone();
             modifiedGraticule = GenerateResidentialBuildings(graticule);
             modifiedGraticule = GenerateCommercialBuildings(modifiedGraticule);
             return modifiedGraticule;

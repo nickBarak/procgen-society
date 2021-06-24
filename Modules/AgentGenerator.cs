@@ -11,7 +11,20 @@ namespace Modules {
     public class AgentGenerator {
         public static List<AAgent> GenerateAgents() {
             List<AAgent> agents = new List<AAgent>();
-            agents.AddRange(GenerateHumans());
+            List<Human> humans = GenerateHumans();
+            agents.AddRange(humans);
+
+            Random random = new Random();
+
+            foreach (Human human in humans) {
+                human.Sociology.Family = new AAgent[]{};
+                human.Sociology.Friends = new AAgent[]{};
+                human.Sociology.Lovers = new AAgent[]{};
+                human.Sociology.Enemies = new AAgent[]{};
+                human.Sociology.FriendInterests = new AAgent[]{};
+                human.Sociology.LoverInterests = new AAgent[]{};
+            }
+
             return agents;
         }
 

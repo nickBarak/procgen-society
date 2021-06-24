@@ -1,4 +1,4 @@
-using Direction = Types.Enums.CardinalDirection;
+using Direction = Types.Enums.ECardinalDirection;
 using Tile = Types.Classes.Concrete.Tile;
 
 namespace Modules {
