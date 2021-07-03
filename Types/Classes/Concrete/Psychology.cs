@@ -14,6 +14,10 @@ namespace Types.Classes.Concrete {
         public EAmplitude Extraversion;
         public EAmplitude Agreeableness;
         public EAmplitude Negativity;
+        public EAmplitude Curiosity;
+        public EAmplitude Masculinity;
+        public EAmplitude Charisma;
+
 
         public Psychology() {
             Utility.RandomizeFields(this, System.Enum.GetValues(typeof(EAmplitude)), "Temperament");

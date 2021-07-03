@@ -18,19 +18,51 @@ namespace Modules {
             return bank.GetValue(new Random().Next(bank.Length));
         }
 
-        public static string Serialize(object instance, string indent="") {
+        public static string SerializeAsJSON(object instance, string indent="  ", List<object> references=null) {
             if (instance == null) return "null";
-            Type type = instance.GetType();
-            if (type.IsPrimitive || type == typeof(string) || type.IsEnum) return instance.ToString();
-            if (typeof(IEnumerable).IsAssignableFrom(type)) return Serialize((IEnumerable) instance);
-            return type.GetFields().Aggregate("", 
-                (accumulator, current) => accumulator + String.Format("\n{0}{1}: {2}", indent, current.Name, Serialize(current.GetValue(instance), indent + "  ")));
+            if (references == null) references = new List<object>();
+            List<object> newReferences = new List<object>(references){instance};
+
+            Type instanceType = instance.GetType();
+            if (instanceType == typeof(bool)) return instance.ToString().ToLower();
+            if (new Type[]{typeof(byte), typeof(short), typeof(int), typeof(long), typeof(float), typeof(double), typeof(decimal)}.Any(type => type == instanceType))
+                return instance.ToString();
+            if (instanceType.IsPrimitive || instanceType.IsEnum || instanceType == typeof(string))
+                return "\"" + instance.ToString() + "\"";
+            if (references.Any(reference => object.ReferenceEquals(instance, reference)))
+                return "\"circular reference\"";
+            if (typeof(IEnumerable).IsAssignableFrom(instanceType)) {
+                return SerializeAsJSON(
+                    (IEnumerable) instance,
+                    indent,
+                    newReferences
+                );
+            }
+
+            return instanceType.GetFields().Aggregate("", 
+                (accumulator, current) => accumulator + string.Format(
+                    "{0}\"{1}\": {2},\n",
+                    indent,
+                    current.Name,
+                    SerializeAsJSON(
+                        current.GetValue(instance),
+                        indent+"  ",
+                        newReferences
+                    )
+                ),
+                (accumulator) => (accumulator.Length > 0)
+                                    ? string.Format("{{\n{0}{1}}}", accumulator, indent.Substring(0, indent.Length-2))
+                                    : "{}"
+            );
         }
 
-        public static string Serialize(IEnumerable enumerable, string indent="") {
+        public static string SerializeAsJSON(IEnumerable enumerable, string indent, List<object> references) {
             string result = "";
-            foreach(object obj in enumerable) result += ", " + Serialize(obj);
-            return (result.Length > 0) ? result.Substring(2) : "None";
+            foreach (dynamic element in enumerable)
+                result += SerializeAsJSON(element, indent, references) + ",\n";
+            return (result.Length > 0)
+                        ? string.Format("[\n{0}{1}\n{2}]", indent, result.Substring(0, result.Length-1), indent.Substring(0, indent.Length-2))
+                        : "[]";
         }
     }
 }

@@ -13,8 +13,8 @@ namespace Project {
         private static string s_input;
 
         public static void Main(string[] args) {
-            Out("Running Procgen Society");
-            System.Threading.Thread.Sleep(1200);
+            Out("Running procgen-society");
+            System.Threading.Thread.Sleep(1000);
 
             Console.Write("Generating world");
             World = new World();
@@ -35,29 +35,46 @@ namespace Project {
             Database.Names.Record playerNameRecord = new Database.Names.Record(playerName, playerIsMale);
             do {
                 Player = new Human(playerNameRecord);
-                Out(string.Format("\nPresenting data generated for player:\n", playerName) + Utility.Serialize(Player));
+                Out(string.Format("\nPresenting data generated for player:", playerName));
+                System.Threading.Thread.Sleep(1000);
+                Out(Utility.SerializeAsJSON(Player));
                 Console.Write("\nWould you like to re-roll? ");
                 s_input = Console.ReadLine();
             } while (ConfirmInput());
 
+            Out("\nPresenting agent names:");
+            System.Threading.Thread.Sleep(1000);
+            foreach (Types.Classes.Abstract.AAgent agent in World.Agents)
+                Out(agent.Name);
+
+            Out("\nPress any key to continue");
+            Console.ReadKey(true);
+            
+            Out("\nPresenting agent data");
+            System.Threading.Thread.Sleep(1000);
+            Console.WriteLine(Utility.SerializeAsJSON(World.Agents[0]));
+
+            Out("\nPress any key to end simulation");
+            Console.ReadKey(true);
+
             Out("\nThank you for playing.");
-            System.Threading.Thread.Sleep(900);
+            System.Threading.Thread.Sleep(1000);
             Out("Goodbye.");
             System.Threading.Thread.Sleep(500);
         }
 
         public static void Out(params string[] strArr) {
             foreach (string s in strArr) Console.Write(s);
-            Console.WriteLine();
+                Console.WriteLine();
         }
 
         private static void GenerateTargetState() {
             TargetState = World;
-            System.Threading.Thread.Sleep(800);
+            System.Threading.Thread.Sleep(750);
             Console.Write(".");
-            System.Threading.Thread.Sleep(800);
+            System.Threading.Thread.Sleep(750);
             Console.Write(".");
-            System.Threading.Thread.Sleep(800);
+            System.Threading.Thread.Sleep(750);
             Console.Write(".\n");
         }
 

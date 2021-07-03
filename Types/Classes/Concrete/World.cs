@@ -11,11 +11,11 @@ namespace Types.Classes.Concrete {
         public World() {
             this.Agents = Modules.AgentGenerator.GenerateAgents();
             this.Graticule = Modules.GraticuleGenerator.GenerateGraticule(this.Agents);
-            System.Threading.Thread.Sleep(800);
+            System.Threading.Thread.Sleep(750);
             System.Console.Write(".");
-            System.Threading.Thread.Sleep(800);
+            System.Threading.Thread.Sleep(750);
             System.Console.Write(".");
-            System.Threading.Thread.Sleep(800);
+            System.Threading.Thread.Sleep(750);
             System.Console.Write(".\n");
         }
     }

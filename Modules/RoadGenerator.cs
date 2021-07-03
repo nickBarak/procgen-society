@@ -5,6 +5,8 @@ namespace Modules {
     public class RoadGenerator {
         private static Direction s_direction;
         private static System.Random s_random = new System.Random();
+        private static int[] s_position;
+        private static Tile[,] s_modifiedGraticule;
         
         public static Tile[,] GenerateRoads(Tile[,] graticule) {
             // - 4x4 chunks
@@ -14,21 +16,36 @@ namespace Modules {
             // - at 6th chunk randomly select direction (except backwards)
             // - if dead end backtrack 1 chunk and try different direction
             // - connect some roads either after road gen or after adding buildings
+            s_modifiedGraticule = (Tile[,]) graticule.Clone();
+            SetRandomStartIndex();
+            ChangeDirection();
+            PlaceRoads();
+            ConnectNearbyRoads();
+            return s_modifiedGraticule;
+        }
 
+        private static void SetRandomStartIndex() {
             bool[,] chunkedMap = new bool[GraticuleGenerator.GraticuleSize/4, GraticuleGenerator.GraticuleSize/4];
             int startIndexSeed = s_random.Next(chunkedMap.Length + 2);
-            int[] startIndex = (startIndexSeed <= chunkedMap.Length)
+            s_position = (startIndexSeed <= chunkedMap.Length)
                                     ? new int[]{startIndexSeed, 0}
                                     : (startIndexSeed == chunkedMap.Length + 1)
                                         ? new int[]{0, 1}
-                                        : new int[]{chunkedMap.Length, 1};
-                        
-            ChangeDirection();
-            return new Tile[,]{};
+                                        : new int[]{chunkedMap.Length-1, 1};
+        }
+
+        private static void PlaceRoads() {
+
+        }
+
+        private static void ConnectNearbyRoads() {
+
         }
 
         private static void ChangeDirection() {
-            s_direction = ((Direction[]) System.Enum.GetValues(typeof(Direction)))[s_random.Next(System.Enum.GetValues(typeof(Direction)).Length)];
+            do {
+                s_direction = ((Direction[]) System.Enum.GetValues(typeof(Direction)))[s_random.Next(System.Enum.GetValues(typeof(Direction)).Length)];
+            } while(false/*s_direction is valid*/);
         }
     }
 }

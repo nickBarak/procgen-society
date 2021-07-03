@@ -5,34 +5,39 @@ using System;
 using Tile = Types.Classes.Concrete.Tile;
 using Human = Types.Classes.Concrete.Human;
 using AAgent = Types.Classes.Abstract.AAgent;
+using Sociology = Types.Classes.Concrete.Sociology;
 using System.Collections.Generic;
 
 namespace Modules {
     public class AgentGenerator {
+        private static readonly string[] s_relationshipSets = new string[]{"Friends", "Lovers", "Enemies", "FriendInterests", "LoverInterests"};
+        private static Random s_random = new Random();
+        private static List<AAgent> s_agents;
+        private static List<Human> s_humans;
+
         public static List<AAgent> GenerateAgents() {
-            List<AAgent> agents = new List<AAgent>();
-            List<Human> humans = GenerateHumans();
-            agents.AddRange(humans);
+            s_agents = new List<AAgent>();
+            s_humans = new List<Human>();
 
-            Random random = new Random();
+            GenerateHumans();
+            SetSocialRelationships();
 
-            foreach (Human human in humans) {
-                human.Sociology.Family = new AAgent[]{};
-                human.Sociology.Friends = new AAgent[]{};
-                human.Sociology.Lovers = new AAgent[]{};
-                human.Sociology.Enemies = new AAgent[]{};
-                human.Sociology.FriendInterests = new AAgent[]{};
-                human.Sociology.LoverInterests = new AAgent[]{};
-            }
-
-            return agents;
+            return s_agents;
         }
 
-        public static List<Human> GenerateHumans() {
-            List<Human> humans = new List<Human>();
-            for (int i=GraticuleGenerator.GraticuleSize/4; i>0; i++)
-                humans.Add(new Human());
-            return humans;
+        private static void GenerateHumans() {
+            for (int i=GraticuleGenerator.GraticuleSize/4; i>0; i--)
+                s_humans.Add(new Human());
+            s_agents.AddRange(s_humans);
+        }
+
+        private static void SetSocialRelationships() {
+            foreach (Human human in s_humans) {
+                foreach(string relationshipSet in s_relationshipSets) {
+                    System.Reflection.FieldInfo fieldInfo = typeof(Sociology).GetField(relationshipSet);
+                    fieldInfo.SetValue(human.Sociology, new AAgent[]{s_humans[s_random.Next(s_humans.Count)]});
+                }
+            }
         }
     }
 }

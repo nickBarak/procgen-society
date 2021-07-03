@@ -6,28 +6,29 @@ namespace Modules {
     public class BuildingGenerator {
         private static Direction s_direction;
         private static Random s_random = new Random();
+        private static Tile[,] s_modifiedGraticule;
 
         public static Tile[,] GenerateBuildings(Tile[,] graticule) {
-            Tile[,] modifiedGraticule = (Tile[,]) graticule.Clone();
-            modifiedGraticule = GenerateResidentialBuildings(graticule);
-            modifiedGraticule = GenerateCommercialBuildings(modifiedGraticule);
-            return modifiedGraticule;
+            s_modifiedGraticule = (Tile[,]) graticule.Clone();
+
+            GenerateResidentialBuildings();
+            GenerateCommercialBuildings();
+
+            return s_modifiedGraticule;
         }
         
-        public static Tile[,] GenerateResidentialBuildings(Tile[,] graticule) {
+        private static void GenerateResidentialBuildings() {
             // - 4x4 chunks
-            return new Tile[,]{};
         }
 
-        public static bool[,] GenerateResidentialBuilding() {
+        private static bool[,] GenerateResidentialBuilding() {
             return new bool[,]{};
         }
 
-        public static Tile[,] GenerateCommercialBuildings(Tile[,] graticule) {
-            return new Tile[,]{};
+        private static void GenerateCommercialBuildings() {
         }
 
-        public static bool[,] GenerateCommercialBuilding() {
+        private static bool[,] GenerateCommercialBuilding() {
             return new bool[,]{};
         }
 

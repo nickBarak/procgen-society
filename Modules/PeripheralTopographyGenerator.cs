@@ -9,39 +9,43 @@ using Bush = Types.Classes.Concrete.Bush;
 
 namespace Modules {
     public class PeripheralTopographyGenerator {
+        private static Tile[,] s_modifiedGraticule;
+
         public static Tile[,] GeneratePeripheralTopography(Tile[,] graticule) {
-            Tile[,] modifiedGraticule = (Tile[,]) graticule.Clone();
-            modifiedGraticule = GenerateTrees(modifiedGraticule);
-            modifiedGraticule = GenerateStreetLights(modifiedGraticule);
-            modifiedGraticule = GenerateBushes(modifiedGraticule);
-            return modifiedGraticule;
+            s_modifiedGraticule = (Tile[,]) graticule.Clone();
+
+            GenerateTrees();
+            GenerateStreetLights();
+            GenerateBushes();
+
+            return s_modifiedGraticule;
         }
 
-        public static Tile[,] GenerateTrees(Tile[,] graticule) {
-            return new Tile[,]{};
+        private static void GenerateTrees() {
+            
         }
 
-        public static Tree GenerateTree() {
+        private static Tree GenerateTree() {
             string HumanName = Database.Names.Data[new Random().Next(Database.Names.Data.Count)].Text;
             Tree tree = new Tree();
             return tree;
         }
 
-        public static Tile[,] GenerateStreetLights(Tile[,] graticule) {
-            return new Tile[,]{};
+        private static void GenerateStreetLights() {
+            
         }
 
-        public static StreetLight GenerateStreetLight() {
+        private static StreetLight GenerateStreetLight() {
             string HumanName = Database.Names.Data[new Random().Next(Database.Names.Data.Count)].Text;
             StreetLight streetLight = new StreetLight();
             return streetLight;
         }
 
-        public static Tile[,] GenerateBushes(Tile[,] graticule) {
-            return new Tile[,]{};
+        private static void GenerateBushes() {
+
         }
 
-        public static Bush GenerateBush() {
+        private static Bush GenerateBush() {
             string HumanName = Database.Names.Data[new Random().Next(Database.Names.Data.Count)].Text;
             Bush bush = new Bush();
             return bush;
